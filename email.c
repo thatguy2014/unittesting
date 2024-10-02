@@ -17,7 +17,6 @@ int main(int argc, char* argv[]){
                 at_found = 1;
             }
             if((argv[1][i]) == '.'){
-                printf("\n%d", length-i);
                 if(length-i!=4){
                     printf("\nInvalid email address");
                     return 1;
