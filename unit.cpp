@@ -5,7 +5,7 @@
 using namespace std;
 
 bool isValidEmail(const std::string& email) {
-    const std::regex pattern(R"((\w+)(\.{0,1}\w+)*@(\w+)(\.\w+)+)");
+    const std::regex pattern("((\w-)*(\.{0,1}\w+)*@(\w+)(\.\w+)+)");
     return std::regex_match(email, pattern);
 }
 
