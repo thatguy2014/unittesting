@@ -1,6 +1,7 @@
 // Includes
 #include <stdio.h> 
 #include <stdlib.h> 
+#include <string.h>
 
 int main(int argc, char* argv[]){
         if(argc!=2){
@@ -22,9 +23,6 @@ int main(int argc, char* argv[]){
                     return 1;
                 }
                 for(int j = i; j < length; j++){
-                    if(length<j+3){
-                        break;
-                    }
                     if((argv[1][j+1]) == 'c' && (argv[1][j+2]) == 'o'  && (argv[1][j+3]) == 'm'){
                         valid_domain =1;
                     }
