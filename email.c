@@ -2,6 +2,9 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h>
+#include <ctype.h>
+
+int validate_email(char *address);
 
 int main(int argc, char* argv[]){
         if(argc!=2){
@@ -9,41 +12,38 @@ int main(int argc, char* argv[]){
             return 1;
         }
 
-        int length = strlen(argv[1]);
-        int at_found = 0;
-        int valid_domain = 0;
-        for(int i=0; i < length; i++){
-            if((argv[1][i]) == '@'){
-                at_found = 1;
-            }
-            if((argv[1][i]) == '.'){
-                if(length-i!=4){
-                    printf("\nInvalid email address");
-                    return 1;
-                }
-                for(int j = i; j < length; j++){
-                    if((argv[1][j+1]) == 'c' && (argv[1][j+2]) == 'o'  && (argv[1][j+3]) == 'm'){
-                        valid_domain =1;
-                    }
+        int valid = validate_email(argv[1]);
 
-                    if((argv[1][j+1]) =='o' && (argv[1][j+2]) =='r' && (argv[1][j+3]) == 'g'){
-                        valid_domain =1;
-                    }
-
-                    if((argv[1][j+1]) == 'n' && (argv[1][j+2]) =='n' && (argv[1][j+3]) =='t'){
-                        valid_domain =1;
-                    }
-
-                    if((argv[1][j+1]) =='e' && (argv[1][j+2]) =='d' && (argv[1][j+3]) == 'u'){
-                        valid_domain =1;
-                    }
-                }
-            }
-        }
-        if(at_found && valid_domain){
+        // Print Statements
+        if(valid){
             printf("\nValid email address!");
         }
         else{
             printf("\nInvalid email address");
         }
+}
+
+int validate_email(char *address) {
+    int length = strlen(address);
+    int at_found = 0;
+
+    for (int i = 0; i < length; i++) {
+        if ((address[i]) == '@') { // find @ symbol in address
+            at_found = 1;
+        }
+        if ((address[i]) == '.') {
+            if (length - i != 4 && length - i != 3) { // check if domains are .xx or .xxx
+                return 0;
+                break;
+            } else {
+                for (int j = i; j < length; j++) {
+                    if (isdigit(address[j])) { //check if x in .xx/.xxx are digits
+                        return 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return at_found;
 }
